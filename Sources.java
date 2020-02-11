@@ -6,4 +6,7 @@ public class Sources {
     public static final ImageIcon HEAD_LEFT_ICON = new ImageIcon("imgs/HeadLeft.png");
     public static final ImageIcon HEAD_DOWN_ICON = new ImageIcon("imgs/HeadDown.png");
     public static final ImageIcon HEAD_RIGHT_ICON = new ImageIcon("imgs/HeadRight.png");
+    public static final ImageIcon GAME_START_ICON = new ImageIcon("imgs/Start.png");
+    public static final ImageIcon GAME_PAUSE_ICON = new ImageIcon("imgs/Pause.png");
+    public static final ImageIcon EXIT_ICON = new ImageIcon("imgs/Exit.png");
 }

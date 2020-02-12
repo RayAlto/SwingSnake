@@ -6,9 +6,11 @@ public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    Dimension frameSize = new Dimension(1516, 1008);
-    GamePanel gamePanel = new GamePanel();
+    Dimension frameSize = new Dimension(1516, 1039);
     JLabel startLabel = new JLabel("按下空格开始/暂停");
+    JPanel scorePanel = new JPanel();
+    JLabel scoreLabel = new JLabel("wait");
+    GamePanel gamePanel = new GamePanel(scoreLabel);
     JMenuBar menuBar = new JMenuBar();
     JMenu menuGame = new JMenu("游戏(G)");
     SnakeMenuItem menuItemStart = new SnakeMenuItem("开始(S)", KeyEvent.VK_S,
@@ -84,6 +86,10 @@ public class MainFrame extends JFrame {
         System.exit(0);
     }
 
+    public static void gameOver() {
+
+    }
+
     public MainFrame(String title) {
         super(title);
         setSize(frameSize);
@@ -115,6 +121,7 @@ public class MainFrame extends JFrame {
             }
         });
         gamePanel.setBounds(0, 19, 1500, 950);
+        gamePanel.setVisible(false);
         menuGame.setMnemonic(KeyEvent.VK_G);
         menuAbout.setMnemonic(KeyEvent.VK_A);
         menuGame.add(menuItemStart);
@@ -131,10 +138,14 @@ public class MainFrame extends JFrame {
         startLabel.setBackground(Color.CYAN);
         startLabel.setHorizontalAlignment(SwingConstants.CENTER);
         startLabel.setBounds(0, 0, (int) frameSize.getWidth(), (int) frameSize.getHeight());
+        scorePanel.setBackground(Color.WHITE);
+        scorePanel.add(scoreLabel);
+        scorePanel.setBounds(0, 969, 1500, 30);
+        add(scorePanel);
         add(menuBar);
         add(gamePanel);
         add(startLabel);
-        gamePanel.setVisible(false);
+        add(scorePanel);
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);

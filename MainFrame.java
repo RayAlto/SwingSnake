@@ -9,7 +9,7 @@ public class MainFrame extends JFrame {
     Dimension frameSize = new Dimension(1516, 1039);
     JLabel startLabel = new JLabel("按下空格开始/暂停");
     JPanel scorePanel = new JPanel();
-    JLabel scoreLabel = new JLabel("wait");
+    JLabel scoreLabel = new JLabel();
     GamePanel gamePanel = new GamePanel(scoreLabel);
     JMenuBar menuBar = new JMenuBar();
     JMenu menuGame = new JMenu("游戏(G)");
@@ -67,27 +67,27 @@ public class MainFrame extends JFrame {
     }
 
     public void startGame() {
+        startLabel.setVisible(false);
         gamePanel.setVisible(true);
         gamePanel.start();
     }
 
     public void pauseGame() {
+        startLabel.setVisible(true);
         gamePanel.setVisible(false);
         gamePanel.pause();
     }
 
     public void restartGame() {
         gamePanel.restart();
+        startLabel.setVisible(false);
     }
 
     public void exitGame() {
+        startLabel.setVisible(true);
         gamePanel.setVisible(false);
         gamePanel.pause();
         System.exit(0);
-    }
-
-    public static void gameOver() {
-
     }
 
     public MainFrame(String title) {
@@ -100,10 +100,16 @@ public class MainFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     // 按下了空格键
-                    if (gamePanel.status == GamePanel.PAUSED) {
-                        startGame();
-                    } else if (gamePanel.status == GamePanel.RUNNING) {
+                    if (gamePanel.status == GamePanel.RUNNING) {
                         pauseGame();
+                    } else if (gamePanel.status == GamePanel.FAILED) {
+                        remove(gamePanel);
+                        gamePanel = new GamePanel(scoreLabel);
+                        add(gamePanel);
+                        gamePanel.setBounds(0, 19, 1500, 950);
+                        startGame();
+                    } else {
+                        startGame();
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
                     // 按下了向上箭头

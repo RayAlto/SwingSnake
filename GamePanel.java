@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.*;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -13,7 +14,7 @@ public class GamePanel extends JPanel {
     public static int RUNNING = 1;
     public static int PAUSED = 0;
     public static int FAILED = -1;
-    public int interval = 200;
+    public int interval = 100;
     public int status = PAUSED;
     public double time = 0;
     private static final long serialVersionUID = 1L;
@@ -29,6 +30,7 @@ public class GamePanel extends JPanel {
                 pause();
                 // 游戏结束了
                 status = FAILED;
+                gameOver();
             }
         }
     });
@@ -92,6 +94,12 @@ public class GamePanel extends JPanel {
         setVisible(true);
         gameTimer.start();
         status = PAUSED;
+    }
+
+    public void gameOver() {
+        setVisible(false);
+        JOptionPane.showMessageDialog(this, "你失败了,得分: " + (snake.body.size() - 3) + "  用时" + time + "秒。", "你玩完了",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public GamePanel(JLabel scoreLabel) {
